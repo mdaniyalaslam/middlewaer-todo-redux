@@ -27,22 +27,50 @@ class App extends Component {
     this.state = {
       // todoInput: '',
       // todos: []
-
     }
     // this.onChangeHandler = this.onChangeHandler.bind(this)
   }
-    addingTodo(data){
-      console.log(data)
-      firebase.database().ref('/').child('reduxtodos').push(data)
-      .then(()=>{
-        alert('success')
-      }
-
-      )
-
+    addingTodo(data){   // data me todos arahi hen header.js se
+      console.log('addig:' + data)
+      // firebase.database().ref('/').child('reduxtodos').push(data)
+      // .then(()=>{
+      //   alert('success')
+      // }
+      // )
     }
-
   //////////////////////////////////////////////////////////////////////constructor ends
+//1
+  render() {
+    return (
+      <div className="App" >
+        <Header addValue={this.addingTodo.bind(this)} />
+      </div>
+    );
+  }
+}
+function mapStateToProp(state){
+  return {
+    rootObj: state.root
+  }
+}
+function mapDispatchToProp(dispatch){
+  return{
+    addingTodo: (val)=>{
+      dispatch(TodoMdware.asyncTodo(val))
+    }
+  }
+}
+// export default App;
+export default connect(mapStateToProp, mapDispatchToProp)(App);
+
+
+
+
+
+
+
+
+//1
   // onChangeHandler(ev) {
     //   this.setState({
       //     [ev.target.name]: ev.target.value
@@ -57,16 +85,3 @@ class App extends Component {
         // }
         
         //////////////////////////////////////////////////////////////////////REnder
-  render() {
-    return (
-      <div className="App" >
-        <Header addValue={this.addingTodo.bind(this)} />
-      </div>
-    );
-  }
-}
-
-
-export default App;
-// export default connect(mapStateToProp, mapDispatchToProp)(App);
-

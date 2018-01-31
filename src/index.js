@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
+import Todo from './components/todo';
 // import About from './About';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux';
@@ -26,7 +27,7 @@ import *as firebase from 'firebase';
 // const render = () => ReactDOM.render(
 ReactDOM.render(
     <Provider store={store}>
-            <App />
+            <Todo />
     </Provider>,
     document.getElementById('root')
 );

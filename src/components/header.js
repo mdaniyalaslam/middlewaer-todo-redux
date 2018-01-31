@@ -45,7 +45,7 @@ class Header extends Component {
 addTodo(){
     this.state.todos.push({todo : this.state.todoInput});
     this.setState({todoInput:''})
-    this.props.addingTodo({todo : this.state.todoInput})
+    this.props.addValue({todo : this.state.todoInput})   // is me data h todo ka jo yahan se ja raha h app me
 }
 
   render() {
