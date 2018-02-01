@@ -19,30 +19,36 @@ class Todo extends Component {
         })
     }
     _changeData() {
-        console.log('it works');
+        // console.log('it works');
         // this.props.changeName();
-        
         this.state.todos.push(this.state.todoInput);
-        this.props.addTodo(this.state.todos);
+        this.props.addTodo(this.state.todos); // action
+        this.setState({
+            todoInput : ''
+        })
       }
+    //   deleteTodo(){
+    //     console.log('delete')
+    // }
     render() {
         return (
             <div className="App" >
-            <h1>Todo{this.props.comingState}</h1>
+            <h1>Todo</h1>
                 <br />
                 <TextField
                     id="text-field-default"
                     placeholder="Write Todo Here.."
                     name="todoInput" onChange={this.onChangeHandler}
+                    value={this.state.todoInput}
                 />
                 <button onClick={this._changeData.bind(this)}>Add</button>
                 {/* {console.log(this.props.comingTodoState)} */}
                 <table>
-                    {/* {
-                        this.props.rootObj.todos.map((val, ind) => {
+                    {
+                        this.props.comingTodoState.map((val, ind) => {
                             return <tr><td>{val}</td></tr>
                         })
-                    } */}
+                    }
                 </table>
             </div>
         );
@@ -57,7 +63,7 @@ function mapStateToProp(state){
 }
 function mapDispatchToProp(dispatch){
     return{
-        addTodo : (val)=>{dispatch(TodoMdware.asyncTodo)}
+        addTodo : (val)=>{dispatch(TodoMdware.asyncTodo(val))}
     }
 }
 
