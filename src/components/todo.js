@@ -12,6 +12,12 @@ class Todo extends Component {
             todos: []
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
+        //Firebase
+        firebase.database().ref('/reduxTodos').on('child_added', (snap)=>{
+            let firebaseObj = snap.val();
+            // firebaseObj.key = snap.key; 
+            console.log(firebaseObj)
+        })
     }
     onChangeHandler(ev) {
         this.setState({
@@ -22,14 +28,25 @@ class Todo extends Component {
         // console.log('it works');
         // this.props.changeName();
         this.state.todos.push(this.state.todoInput);
-        this.props.addTodo(this.state.todos); // action
+       // this.props.addTodo(this.state.todos); // action
         this.setState({
             todoInput : ''
         })
       }
-    //   deleteTodo(){
-    //     console.log('delete')
-    // }
+      add(){
+        // this.state.todos.push(this.state.todoInput);
+        let currentTodos = this.state.todoInput
+        // console.log(currentTodos)
+                  
+          firebase.database().ref('/').child('reduxTodos'+'/'+'todos').push(currentTodos)
+          .then(()=>{
+            //   currentTodos.key = val.key;
+            //   console.log(val.key)
+
+          })
+      }
+
+    
     render() {
         return (
             <div className="App" >
@@ -41,7 +58,7 @@ class Todo extends Component {
                     name="todoInput" onChange={this.onChangeHandler}
                     value={this.state.todoInput}
                 />
-                <button onClick={this._changeData.bind(this)}>Add</button>
+                <button onClick={this.add.bind(this)}>Add</button>
                 {/* {console.log(this.props.comingTodoState)} */}
                 <table>
                     {
