@@ -12,10 +12,10 @@ export default class ActionTypes {
         };
         
     }
-    static addTodo (val) {
+    static addTodo (currentFireObj) {
         return {
             type: this.ADD_TODO, 
-            payload:val
+            payload:currentFireObj
         }; 
     }
     static deleteTodo (val) {

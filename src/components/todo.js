@@ -13,10 +13,18 @@ class Todo extends Component {
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         //Firebase
-        firebase.database().ref('/reduxTodos').on('child_added', (snap)=>{
-            let firebaseObj = snap.val();
-            // firebaseObj.key = snap.key; 
-            console.log(firebaseObj)
+        firebase.database().ref('/reduxTodos/todos').on('child_added', (snap)=>{
+            // let firebaseObj = snap.val();
+            let object= snap.val();
+            object.key = snap.key;
+            console.log(object)
+            // object.value=snap.val();
+            // object.id=snap.key; 
+      console.log( this.props.addTodo(this.state.todos)); // action
+            
+            // console.log(object)
+
+
         })
     }
     onChangeHandler(ev) {
@@ -28,7 +36,7 @@ class Todo extends Component {
         // console.log('it works');
         // this.props.changeName();
         this.state.todos.push(this.state.todoInput);
-       // this.props.addTodo(this.state.todos); // action
+    //    this.props.addTodo(this.state.todos); // action
         this.setState({
             todoInput : ''
         })
