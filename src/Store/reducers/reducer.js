@@ -15,6 +15,7 @@ export default (state = INITIAL_STATE, action) => {
                 userName: action.payload
             })
         case ActionTypes.ADD_TODO: 
+        console.log('reducer'+ action.payload)
             return ({
                 ...state,
                 todos:action.payload

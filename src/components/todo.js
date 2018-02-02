@@ -9,18 +9,22 @@ class Todo extends Component {
         super()
         this.state = {
             todoInput: '',
-            todos: []
+            // todos: []
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
         //Firebase
-        firebase.database().ref('/reduxTodos/todos').on('child_added', (snap)=>{
-            // let firebaseObj = snap.val();
-            let object= snap.val();
-            object.key = snap.key;
-            console.log(object)
+        firebase.database().ref('/reduxTodos').on('child_added', (snap)=>{
+            let firebaseObj = {};
+            // firebaseObj.todo = snap.val();
+            // firebaseObj.key = snap.key;
+            console.log('1st'+ firebaseObj)
+            // this.setState({todos:firebaseObj})
+            // console.log(this.state.todos)
             // object.value=snap.val();
             // object.id=snap.key; 
-      console.log( this.props.addTodo(this.state.todos)); // action
+            // let currentItems = this.state.todos
+            // this.props.addTodo(firebaseObj)
+            // this.props.addTodo(this.state.todos); // action
             
             // console.log(object)
 
@@ -32,24 +36,17 @@ class Todo extends Component {
             [ev.target.name]: ev.target.value
         })
     }
-    _changeData() {
-        // console.log('it works');
-        // this.props.changeName();
-        this.state.todos.push(this.state.todoInput);
-    //    this.props.addTodo(this.state.todos); // action
-        this.setState({
-            todoInput : ''
-        })
-      }
+  
       add(){
         // this.state.todos.push(this.state.todoInput);
         let currentTodos = this.state.todoInput
         // console.log(currentTodos)
                   
-          firebase.database().ref('/').child('reduxTodos'+'/'+'todos').push(currentTodos)
+          firebase.database().ref('/').child('reduxTodos').push(currentTodos)
           .then(()=>{
-            //   currentTodos.key = val.key;
-            //   console.log(val.key)
+            this.setState({
+                todoInput : ''
+            })
 
           })
       }
@@ -70,9 +67,10 @@ class Todo extends Component {
                 {/* {console.log(this.props.comingTodoState)} */}
                 <table>
                     {
-                        this.props.comingTodoState.map((val, ind) => {
-                            return <tr><td>{val}</td></tr>
-                        })
+                        // console.log(this.props.comingTodoState)
+                        // this.props.comingTodoState.map((todo) => {
+                        //     return <tr><td>{todo}</td></tr>
+                        // })
                     }
                 </table>
             </div>
@@ -87,9 +85,10 @@ function mapStateToProp(state){
     }
 }
 function mapDispatchToProp(dispatch){
-    return{
+    return({
         addTodo : (val)=>{dispatch(TodoMdware.asyncTodo(val))}
-    }
+    })
+    
 }
 
 export default connect(mapStateToProp, mapDispatchToProp) (Todo);

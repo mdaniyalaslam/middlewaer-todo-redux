@@ -6,9 +6,10 @@ export default class TodoMdware{
             dispatch(ActionTypes.changeName())
         }
     }
-    static asyncTodo(currentFireObj){
+    static asyncTodo(val){
+        console.log('middleware'+ val)
         return (dispatch) =>{
-            dispatch(ActionTypes.addTodo(currentFireObj))
+            dispatch(ActionTypes.addTodo(val))
         }
     }
     static asyncDelete(val){

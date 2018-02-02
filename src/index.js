@@ -11,15 +11,25 @@ import { createStore } from 'redux';
 import *as firebase from 'firebase';
 
  // Initialize Firebase
- var config = {
-    apiKey: "AIzaSyAkhH4uLWHVBCVd5wtIvK6l6p9BLTZXBLs",
-    authDomain: "todo-app-2411f.firebaseapp.com",
-    databaseURL: "https://todo-app-2411f.firebaseio.com",
-    projectId: "todo-app-2411f",
-    storageBucket: "todo-app-2411f.appspot.com",
-    messagingSenderId: "213722828277"
-  };
-  firebase.initializeApp(config);
+//  var config = {
+//     apiKey: "AIzaSyAkhH4uLWHVBCVd5wtIvK6l6p9BLTZXBLs",
+//     authDomain: "todo-app-2411f.firebaseapp.com",
+//     databaseURL: "https://todo-app-2411f.firebaseio.com",
+//     projectId: "todo-app-2411f",
+//     storageBucket: "todo-app-2411f.appspot.com",
+//     messagingSenderId: "213722828277"
+//   };
+//   firebase.initializeApp(config);
+
+var config = {
+  apiKey: "AIzaSyB8uOFA5eaYTfrDjIKnZXC8wLFqEg6z4GU",
+  authDomain: "portfolio-6b5f9.firebaseapp.com",
+  databaseURL: "https://portfolio-6b5f9.firebaseio.com",
+  projectId: "portfolio-6b5f9",
+  storageBucket: "portfolio-6b5f9.appspot.com",
+  messagingSenderId: "944772683427"
+};
+firebase.initializeApp(config);
 
 
 
