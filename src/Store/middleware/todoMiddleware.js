@@ -12,11 +12,11 @@ export default class TodoMdware{
             dispatch(ActionTypes.addTodo(val))
         }
     }
-//     static asyncDelete(val){
-//         return (dispatch) =>{
-//             dispatch(ActionTypes.addTodo(val))
-//         }
-//     }
+    static asyncDelete(currentItem){
+        return (dispatch) =>{
+            dispatch(ActionTypes.deleteTodo(currentItem))
+        }
+    }
 //     static asyncEdit(val){
 //         return (dispatch) =>{
 //             dispatch(ActionTypes.addTodo(val))

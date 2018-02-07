@@ -22,11 +22,13 @@ export default (state = INITIAL_STATE, action) => {
                 }
             })
 
-        // case ActionTypes.DELETE_TODO: 
-        //     return ({
-        //         ...state,
-        //         todos:action.payload
-        //     })
+        case ActionTypes.DELETE_TODO: 
+            return ({
+                ...state,
+                todos:{...state.todos,
+                    [action.payload.key]:action.payload
+                }
+            })
         // case ActionTypes.EDIT_TODO: 
         //     return ({
         //         ...state,

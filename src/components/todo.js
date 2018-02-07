@@ -43,7 +43,10 @@ class Todo extends Component {
             })
     }
     delete(item) {
-        console.log('delete', item.parentNode.parentNode.id)
+        console.log('delete', item.target.parentNode.parentNode.id)
+        let currentItem = item.target.parentNode.parentNode.id
+        // firebase.database().ref('/').child('reduxTodos/' + currentItem).remove()     // for delete todo
+        this.props.deleteTodo(currentItem)
 
     }
 
@@ -100,9 +103,11 @@ function mapStateToProp(state) {
 }
 function mapDispatchToProp(dispatch) {
     return {
-        addtoTodo: (val) => {
-            dispatch(TodoMdware.asyncTodo(val));
-        }
+        addtoTodo: (val) => { dispatch(TodoMdware.asyncTodo(val))}
+    };
+
+    return {
+        deleteTodo: (currentItem)=>{dispatch(TodoMdware.asyncDelete(currentItem))}
     }
 
 }
