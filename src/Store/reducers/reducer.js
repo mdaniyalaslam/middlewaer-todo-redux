@@ -2,7 +2,7 @@ import ActionTypes from '../Action/action';
 
 const INITIAL_STATE = {
     userName : 'Old',
-    todos : []
+    todos : {}
 }
 
 
@@ -15,21 +15,23 @@ export default (state = INITIAL_STATE, action) => {
                 userName: action.payload
             })
         case ActionTypes.ADD_TODO: 
-        console.log('reducer'+ action.payload)
             return ({
                 ...state,
-                todos:action.payload
+                todos:{...state.todos,
+                    [action.payload.key]:action.payload
+                }
             })
-        case ActionTypes.DELETE_TODO: 
-            return ({
-                ...state,
-                todos:action.payload
-            })
-        case ActionTypes.EDIT_TODO: 
-            return ({
-                ...state,
-                todos:action.payload
-            })
+
+        // case ActionTypes.DELETE_TODO: 
+        //     return ({
+        //         ...state,
+        //         todos:action.payload
+        //     })
+        // case ActionTypes.EDIT_TODO: 
+        //     return ({
+        //         ...state,
+        //         todos:action.payload
+        //     })
    
         default:
             return state;

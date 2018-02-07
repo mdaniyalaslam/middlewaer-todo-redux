@@ -1,34 +1,29 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import TodoMdware from '../Store/middleware/todoMiddleware';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import *as firebase from 'firebase';
 
+const style = {
+    margin: 12,
+  };
+  
 class Todo extends Component {
-    constructor() {
-        super()
+
+    constructor(props) {
+        super(props)
         this.state = {
             todoInput: '',
-            // todos: []
+            todos: {}
         }
         this.onChangeHandler = this.onChangeHandler.bind(this)
-        //Firebase
-        firebase.database().ref('/reduxTodos').on('child_added', (snap)=>{
-            let firebaseObj = {};
-            // firebaseObj.todo = snap.val();
-            // firebaseObj.key = snap.key;
-            console.log('1st'+ firebaseObj)
-            // this.setState({todos:firebaseObj})
-            // console.log(this.state.todos)
-            // object.value=snap.val();
-            // object.id=snap.key; 
-            // let currentItems = this.state.todos
-            // this.props.addTodo(firebaseObj)
-            // this.props.addTodo(this.state.todos); // action
-            
-            // console.log(object)
-
-
+        firebase.database().ref('reduxTodos').on('child_added', (snap) => {
+            let obj = snap.val()
+            obj.key = snap.key
+            this.props.addtoTodo(obj)
         })
     }
     onChangeHandler(ev) {
@@ -36,59 +31,120 @@ class Todo extends Component {
             [ev.target.name]: ev.target.value
         })
     }
-  
-      add(){
-        // this.state.todos.push(this.state.todoInput);
-        let currentTodos = this.state.todoInput
-        // console.log(currentTodos)
-                  
-          firebase.database().ref('/').child('reduxTodos').push(currentTodos)
-          .then(()=>{
-            this.setState({
-                todoInput : ''
+
+    add() {
+        let currentTodos = {};
+        currentTodos.todo = this.state.todoInput;
+        firebase.database().ref('/').child('reduxTodos').push(currentTodos)
+            .then((currentTodos) => {
+                this.setState({
+                    todoInput: ''
+                })
             })
+    }
+    delete(item) {
+        console.log('delete', item.parentNode.parentNode.id)
 
-          })
-      }
+    }
 
-    
     render() {
         return (
-            <div className="App" >
-            <h1>Todo</h1>
+            <div >
                 <br />
                 <TextField
-                    id="text-field-default"
-                    placeholder="Write Todo Here.."
+                    hintText="What to do.."
+                    floatingLabelText="Write todo here"
                     name="todoInput" onChange={this.onChangeHandler}
                     value={this.state.todoInput}
                 />
-                <button onClick={this.add.bind(this)}>Add</button>
-                {/* {console.log(this.props.comingTodoState)} */}
+                {/* {console.log('Coming todos', this.props.comingTodoState)} */}
+                <RaisedButton label="Add" onClick={this.add.bind(this)} primary={true} style={style} />
+
                 <table>
-                    {
-                        // console.log(this.props.comingTodoState)
-                        // this.props.comingTodoState.map((todo) => {
-                        //     return <tr><td>{todo}</td></tr>
-                        // })
-                    }
+                    <tbody>
+
+                        {
+                            Object.keys(this.props.comingTodoState).map((key) => {
+                                return (
+                                    <tr id={key}>
+                                        <td>
+                                            {(this.props.comingTodoState[key]) ? this.props.comingTodoState[key].todo : ""}
+                                        </td>
+                                        <td>
+                                            {<button>Edit</button>}
+                                        </td>
+                                        <td>
+                                            {<button onClick={this.delete.bind(this)}>Delete</button>}
+                                        </td>
+
+
+                                    </tr>
+                                )
+                            })
+
+                        }
+                    </tbody>
                 </table>
             </div>
+
         );
     }
-
 }
-function mapStateToProp(state){
-    return{
+
+
+function mapStateToProp(state) {
+    return {
         comingState: state.root.userName,
         comingTodoState: state.root.todos
     }
 }
-function mapDispatchToProp(dispatch){
-    return({
-        addTodo : (val)=>{dispatch(TodoMdware.asyncTodo(val))}
-    })
-    
+function mapDispatchToProp(dispatch) {
+    return {
+        addtoTodo: (val) => {
+            dispatch(TodoMdware.asyncTodo(val));
+        }
+    }
+
 }
 
-export default connect(mapStateToProp, mapDispatchToProp) (Todo);
+export default connect(mapStateToProp, mapDispatchToProp)(Todo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Firebase
+        // firebase.database().ref('/').on('child_added', (snap)=>{
+        //     console.log('1st'+ snap)
+
+        //     let firebaseObj = snap.val();
+
+        //     // firebaseObj.todo = snap.val();
+        //     // firebaseObj.key = snap.key;
+        //     // console.log('cons'+ firebaseObj)
+
+        //     // this.setState({todos:firebaseObj})
+        //     // console.log(this.state.todos)
+        //     // object.value=snap.val();
+        //     // object.id=snap.key; 
+        //     // let currentItems = this.state.todos
+        //     // this.props.addTodo(firebaseObj)
+        //     // this.props.addTodo(this.state.todos); // action
+
+        //     // console.log(object)
+
+
+        // })

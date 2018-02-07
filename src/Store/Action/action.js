@@ -13,22 +13,22 @@ export default class ActionTypes {
         
     }
     static addTodo (val) {
-        console.log('action'+val)
         return {
             type: this.ADD_TODO, 
-            payload:val
+            payload:val,
+            
         }; 
     }
-    static deleteTodo (val) {
-        return {
-            type: this.DELETE_TODO, 
-            payload:val
-        }; 
-    }
-    static editTodo (val) {
-        return {
-            type: this.EDIT_TODO, 
-            payload:val
-        }; 
-    }
+    // static deleteTodo (val) {
+    //     return {
+    //         type: this.DELETE_TODO, 
+    //         payload:val
+    //     }; 
+    // }
+    // static editTodo (val) {
+    //     return {
+    //         type: this.EDIT_TODO, 
+    //         payload:val
+    //     }; 
+    // }
 } 

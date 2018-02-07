@@ -7,19 +7,19 @@ export default class TodoMdware{
         }
     }
     static asyncTodo(val){
-        console.log('middleware'+ val)
+        // console.log('middleware'+ val)
         return (dispatch) =>{
             dispatch(ActionTypes.addTodo(val))
         }
     }
-    static asyncDelete(val){
-        return (dispatch) =>{
-            dispatch(ActionTypes.addTodo(val))
-        }
-    }
-    static asyncEdit(val){
-        return (dispatch) =>{
-            dispatch(ActionTypes.addTodo(val))
-        }
-    }
+//     static asyncDelete(val){
+//         return (dispatch) =>{
+//             dispatch(ActionTypes.addTodo(val))
+//         }
+//     }
+//     static asyncEdit(val){
+//         return (dispatch) =>{
+//             dispatch(ActionTypes.addTodo(val))
+//         }
+//     }
 }
